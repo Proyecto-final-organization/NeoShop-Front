@@ -251,7 +251,13 @@ const resources = {
         imageTrue:"Upload image success",
         paymentTrue:"Payment Ok",
         paymentFalse:"Error sending payment",
-        cartTrue:"Add to cart"
+        cartTrue:"Add to cart",
+        reviewTrue:"Review submitted successfully!",
+        reviewFalse:"Review Failed. Please try again.",
+        empty:"Please write your opinion before submitting.",
+        tooLong:"The review cannot be more than 500 characters.",
+        ilegal:"The review contains illegal characters.",
+        rating:"The rating must be between 1 and 5."
       }
 
     },
@@ -506,7 +512,15 @@ const resources = {
         imageTrue:"Se subio la imagen",
         paymentTrue:"Pago completado",
         paymentFalse:"Error al enviar el pago",
-        cartTrue:"Se añadio al carrito"
+        cartTrue:"Se añadio al carrito",
+        reviewTrue:"Review publicada",
+        reviewFalse:"Por favor intentelo denuevo",
+        empty:"Por favor escriba algo antes de enviar.",
+        tooLong:"No mas de 500 carcteres.",
+        ilegal:"La review tiene caracteres sospechosos.",
+        rating:"La calificacion debe estar entre 1 y 5"
+
+        
       }
     },
   },

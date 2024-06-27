@@ -136,21 +136,21 @@ const ProductDetail = () => {
     e.preventDefault();
     const reviewText = newReview.text.trim();
     if (!reviewText) {
-      toast.error("Please write your opinion before submitting."); // Validación de texto de reseña no vacío
+      toast.error(t("toast.empty")); // Validación de texto de reseña no vacío
       return;
     }
     if (reviewText.length > 500) {
-      toast.error(`The review cannot be more than ${500} characters.`); // Validación de longitud máxima del texto
+      toast.error(t("toast.tooLong")); // Validación de longitud máxima del texto
       return;
     }
     const suspiciousPattern = /[<*-+)({}|><^%$#@)>]/; // Validación de caracteres sospechosos utilizando una expresión regular
     if (suspiciousPattern.test(reviewText)) {
-      toast.error("The review contains illegal characters.");
+      toast.error(t("toast.ilegal"));
       return;
     }
     if (newReview.rating < 1 || newReview.rating > 5) {
       // Validación de rating en el rango válido (1 a 5)
-      toast.error("The rating must be between 1 and 5.");
+      toast.error(t("toast.rating"));
       return;
     }
     const reviewInfo = {
@@ -161,17 +161,17 @@ const ProductDetail = () => {
     };
     try {
       dispatch(sendReview(reviewInfo));
-      toast.loading("Waiting...");
+      toast.loading(t("toast.waiting"));
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
     } catch (error) {
-      toast.error("Register failed. Please try again.");
+      toast.error(t("toast.reviewFalse"));
     }
     e.target.previousElementSibling.value = ""; // Limpiar el textarea y resetear la calificación después del envío
     e.target.previousElementSibling.style.height = "auto";
     setNewReview({ text: "", rating: 0 });
-    toast.success("Review submitted successfully!");
+    toast.success(t("toast.reviewTrue"));
   };
   
   return (
