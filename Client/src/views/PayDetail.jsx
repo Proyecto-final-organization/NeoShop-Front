@@ -12,6 +12,7 @@ import SuccessMessage from "../components/PaySuccessButton/SuccessMessage";
 
 export const PayDetail = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log (cartItems);
   const user = useSelector((state) => state.auth.user);
   const ship = useSelector((state) => state.pay.delivery);
   const navigate = useNavigate();
@@ -48,12 +49,16 @@ export const PayDetail = () => {
       return accumulator + parseFloat(item.price) * item.cartQuantity;
     }, 0);
 
-    const calculatedComission = calculatedSubtotal * 0.15;
-    const calculatedFinalTotal = (
-      calculatedSubtotal +
-      calculatedComission +
-      4.95
-    ).toFixed(2);
+    const calculatedComissionNumber = (calculatedSubtotal * 0.15).toFixed(2);
+
+    // Convierte la comisión de nuevo a número para sumarlo correctamente
+        const calculatedComission = parseFloat(calculatedComissionNumber);
+        const calculatedFinalTotal = (
+          calculatedSubtotal +
+          calculatedComission +
+          4.95
+        ).toFixed(2);
+    
 
     setSubtotal(calculatedSubtotal);
     setComission(calculatedComission);
@@ -70,18 +75,7 @@ export const PayDetail = () => {
       amount: calculatedFinalTotal,
       date: "",
     });
-    setPaymentDetail({
-      arrayProducts: [...cartItems],
-      id_user: user.id_user,
-      name: user.name,
-      id_payment: "",
-      comission: calculatedComission,
-      deliveryPrice: 4.95,
-      delivery: ship,
-      amount: calculatedFinalTotal,
-      date: "",
-    });
-
+    
     setLoading(false); // Cambiar loading a false una vez que todo este cargado
   }, [cartItems, user, ship]);
 
@@ -95,16 +89,6 @@ export const PayDetail = () => {
         value: parseFloat(item.price).toFixed(2),
       },
     }));
-  async function createOrder() {
-    const purchaseUnits = cartItems.map((item) => ({
-      name: item.name,
-      description: item.description,
-      quantity: item.cartQuantity.toString(),
-      unit_amount: {
-        currency_code: "USD",
-        value: parseFloat(item.price).toFixed(2),
-      },
-    }));
 
     return await fetch("http://localhost:3001/paypal/create-order", {
       method: "POST",
@@ -147,47 +131,7 @@ export const PayDetail = () => {
         throw error;
       });
   }
-    return await fetch("http://localhost:3001/paypal/create-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        intent: "CAPTURE",
-        purchase_units: [
-          {
-            amount: {
-              currency_code: "USD",
-              value: finalTotal,
-              breakdown: {
-                item_total: {
-                  currency_code: "USD",
-                  value: subtotal.toFixed(2),
-                },
-                shipping: { currency_code: "USD", value: "4.95" },
-                tax_total: {
-                  currency_code: "USD",
-                  value: comission.toFixed(2),
-                },
-              },
-            },
-            items: purchaseUnits,
-          },
-        ],
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => data.id)
-      .catch((error) => {
-        console.error("Error creating order:", error);
-        throw error;
-      });
-  }
+
 
   async function onApprove(data) {
     setPaymentId(data.orderID);
