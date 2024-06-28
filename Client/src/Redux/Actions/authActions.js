@@ -105,6 +105,7 @@ export const login = (formData,t) => async (dispatch) => {
   export const isAuthenticated = (jwtToken) => async (dispatch) => {
     const endpoint = `${rutaBack}/login/auth`;
     try {
+        console.log(jwtToken);
       if (jwtToken) {
         const response = await axios.post(endpoint, {
           token: jwtToken,
