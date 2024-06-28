@@ -38,6 +38,8 @@ function App() {
     dispatch(isAuthenticated(jwtToken)); 
   }, [dispatch]);
 
+console.log(jwtToken)
+
   useEffect(() => {
     if (id) {
       dispatch(getFavoritesByUserId(id))
