@@ -63,7 +63,7 @@ export const AdressUser = () => {
       picture: img ? img[0][0] : user.picture, // Si hay una imagen nueva, usarla; de lo contrario, mantener la actual del usuario
     };
     console.log(dataToSend);
-    dispatch(updateUserAddress(dataToSend, navigate));
+    dispatch(updateUserAddress(dataToSend, navigate, t));
   };
 
   const handleImageUpload = async (event) => {

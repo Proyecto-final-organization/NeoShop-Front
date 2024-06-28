@@ -22,7 +22,7 @@ export const login = (formData,t) => async (dispatch) => {
       const response = await axios.post(endpoint, formData, {
         withCredentials: true,
       });
-      toast.loading(("toast.waiting"));
+      toast.loading(t("toast.waiting"));
       if (response.data.correctLogin) {
         toast.success(t("toast.loginTrue"));
   
@@ -30,7 +30,7 @@ export const login = (formData,t) => async (dispatch) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(("toast.loginFalse"));
+      toast.error(t("toast.loginFalse"));
       localStorage.setItem("isAuth", "false");
     }
   };
@@ -63,10 +63,10 @@ export const login = (formData,t) => async (dispatch) => {
     const endpoint = `${rutaBack}/user/`;
   
     try {
-      toast.loading("Waiting...");
+      toast.loading(t("toast.waiting"));
       const response = await axios.post(`${endpoint}`, formData);
   
-      toast.loading(t("toast.waiting"));
+     
       if (response.status === 200) {
         toast.success(t("toast.registerTrue"));
   
@@ -140,7 +140,7 @@ export const login = (formData,t) => async (dispatch) => {
       const response = await axios.put(endpoint, formUpdate);
   
       if (response.status === 200) {
-        toast.success(("toast.updateTrue"));
+        toast.success(t("toast.updateTrue"));
         dispatch({
           type: UPDATE_USER,
           payload: response.data,
@@ -150,7 +150,7 @@ export const login = (formData,t) => async (dispatch) => {
         }, 3000);
       }
     } catch (error) {
-      toast.error(("toast.updateFalse"));
+      toast.error(t("toast.updateFalse"));
       console.log(error);
     }
   };

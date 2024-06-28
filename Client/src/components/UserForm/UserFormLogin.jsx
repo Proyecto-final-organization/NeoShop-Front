@@ -88,7 +88,7 @@ export default function UserFormLogin({ title, onClose }) {
         
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 50);
         
       } catch (error) {
         toast.error(t("toast.emptyUser"));
