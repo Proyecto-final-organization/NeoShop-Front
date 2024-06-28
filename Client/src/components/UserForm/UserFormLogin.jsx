@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { doSignWithFacebook, doSignInWithGoogle } from "../../firebase/auth";
 import { login, resetPassword, sendNewPassword } from "../../Redux/Actions/authActions";
@@ -25,6 +25,7 @@ export default function UserFormLogin({ title, onClose }) {
   const [view, setView] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location= useLocation();
   const isAuth = useSelector((state) => state.auth.isAuth);
   const mailExist = useSelector((state) => state.auth.mailExist);
   const themeLocal = useState(localStorage.getItem("theme"));
@@ -87,7 +88,7 @@ export default function UserFormLogin({ title, onClose }) {
         }
         
         setTimeout(() => {
-          window.location.reload();
+          navigate(location.pathname); // Redirigir a la misma ruta para "refrescar" la página
         }, 50);
         
       } catch (error) {
@@ -113,12 +114,12 @@ export default function UserFormLogin({ title, onClose }) {
 
   const onFacebookSignIn = async (e) => {
     e.preventDefault();
-    dispatch(doSignWithFacebook());
+    dispatch(doSignWithFacebook(navigate));
   };
 
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
-    dispatch(doSignInWithGoogle());
+    dispatch(doSignInWithGoogle(navigate));
   };
 
   return (

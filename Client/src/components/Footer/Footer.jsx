@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const theme = useSelector((state) => state.themes.theme);
@@ -178,15 +179,12 @@ function Footer() {
           </ul>
         </div>
         <div className="mt-8 text-center">
-          <button
+          <Link to= "https://github.com/Proyecto-final-organization"
             className="px-6 py-2 bg-gray-900 border border-white rounded-lg transition-colors duration-300 hover:bg-gray-700"
-            onClick={() =>
-              (window.location.href =
-                "https://github.com/Proyecto-final-organization")
-            }
+           
           >
             <strong>GitHub</strong>
-          </button>
+          </Link>
         </div>
       </div>
     </footer>

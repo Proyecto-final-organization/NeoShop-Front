@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "./ProductDetail.css";
 import Nav from "../components/Nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
@@ -80,7 +80,9 @@ const ProductDetail = () => {
   const favoriteIds = favorites.map(fav => fav.id_product);
   const isFavorite = favoriteIds.includes(id);
   const { t, i18n } = useTranslation();
-  const isAvailable = product.available
+  const isAvailable = product.available;
+  const navigate = useNavigate ();
+  const location = useLocation ();
   
 
   const backgroundColor = theme === "dark" ? "#212121" : "#F3F4F6";
@@ -186,7 +188,7 @@ const ProductDetail = () => {
       dispatch(sendReview(reviewInfo));
       toast.loading(t("toast.waiting"));
       setTimeout(() => {
-        window.location.reload();
+        navigate(location.pathname); // Redirigir a la misma ruta para "refrescar" la página
       }, 1000);
       
     } catch (error) {
