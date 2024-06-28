@@ -28,7 +28,8 @@ import { getFavoritesByUserId } from "./Redux/Actions/favoritesActions";
 
 function App() {
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.auth.user.id_user);
+  const user = useSelector((state) => state.auth.user);
+  const {id_user} = user
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -38,13 +39,11 @@ function App() {
     dispatch(isAuthenticated(jwtToken)); 
   }, [dispatch]);
 
-console.log(jwtToken)
-
   useEffect(() => {
-    if (id) {
-      dispatch(getFavoritesByUserId(id))
+    if (id_user) {
+      dispatch(getFavoritesByUserId(id_user))
     }
-  }, [dispatch, id])
+  }, [dispatch, id_user])
   
 
 
