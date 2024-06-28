@@ -44,7 +44,7 @@ export const PayPreview = () => {
 
   const handleContinue = () => {
     if (!user.name) {
-      toast.error("User not logged in");
+      toast.error(t("toast.notLogin"));
     } else {
       navigate("/pay");
     }

@@ -2,6 +2,7 @@ import { CardHome } from "../CardHome/CardHome";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addToFavorites, sendFavorites, removeFromFavorites, deleteFavoriteItem } from "../../../Redux/Actions/favoritesActions";
+import { useTranslation } from "react-i18next";
 
 export const CardHomeList = ({ allProducts }) => {
   const transparent = "#ffffff00";
@@ -10,6 +11,7 @@ export const CardHomeList = ({ allProducts }) => {
   const favoriteIds = favorites.map(fav => fav.id_product);
   const user = useSelector((state) => state.auth.user);
   const id_user = user.id_user
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -17,14 +19,14 @@ export const CardHomeList = ({ allProducts }) => {
     const id_product = product.id_product;
     const isFavorite = favoriteIds.includes(id_product);
     if (!id_user) {
-      toast.error("User not logged in")
+      toast.error(t("toast.notLogin"))
     }
     else if (id_user, isFavorite) {
-      toast.success("Removed from favorites");
+      toast.success(t("favorites.removed"));
       dispatch(removeFromFavorites(product));
       dispatch(deleteFavoriteItem(id_product, id_user));
     } else {
-      toast.success("Added to favorites");
+      toast.success(t("favorites.added"));
       dispatch(addToFavorites(product));
       dispatch(sendFavorites(id_product, id_user));
     }

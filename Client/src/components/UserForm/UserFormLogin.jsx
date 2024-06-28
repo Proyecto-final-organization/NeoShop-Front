@@ -81,7 +81,7 @@ export default function UserFormLogin({ title, onClose }) {
     if (noErrors && formData.newPassword === formData.confirmPassword) {
       try {
         if (view === "login") {
-          dispatch(login(formData));
+          dispatch(login(formData,t));
         } else if (view === "reset") {
           dispatch(sendNewPassword(formData));
         }
@@ -95,7 +95,7 @@ export default function UserFormLogin({ title, onClose }) {
         console.log(error.message);
       }
     } else {
-      toast.error("Please fix the errors before submitting the form.");
+      toast.error(t("signUp.fixErrors"));
     }
   };
 
