@@ -1,11 +1,10 @@
 import { useState } from "react";
-import FilterStore from "../Filter/FilterStore";
 import { OrderAbc } from "../Filter/OrderAbc";
 import { OrderPrice } from "../Filter/OrderPrice";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-const Sidebar = () => {
+const SidebarHistory = () => {
   const [expanded, setExpanded] = useState(true);
   const theme = useSelector((state) => state.themes.theme);
   const { t, i18n } = useTranslation();
@@ -15,7 +14,6 @@ const Sidebar = () => {
   };
 
   const orangeColor = theme === "dark" ? "#cd7731" : "#e18336";
-
 
   return (
     <div
@@ -111,12 +109,6 @@ const Sidebar = () => {
           <div className="w-full px-4 py-2">
             <div className="flex flex-col items-center w-full mt-3 border-gray-300">
               <a
-                className="flex flex-col items-center mt-3 border-gray-300"
-                href="#"
-              >
-                <FilterStore />
-              </a>
-              <a
                 className="flex flex-col w-full items-center mt-2 border-gray-300"
                 href="#"
               >
@@ -136,4 +128,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarHistory;

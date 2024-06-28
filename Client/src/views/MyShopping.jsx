@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Nav from "../components/Nav/Nav";
 import { myShopping, setHistory } from "../Redux/Actions/productActions";
 import { MyShoppingList } from "../components/MySopping/MyShoppingList";
-import Sidebar from "../components/SideBar/SideBar";
+import SidebarHistory from "../components/SideBar/SidebarHistory";
 import { useTranslation } from "react-i18next";
 
 const MyShopping = () => {
@@ -85,7 +85,7 @@ const MyShopping = () => {
     <div className="bg-gray-100 pb-10 min-h-screen" style={{ background: backgroundColor }}>
       <Nav />
       <div className="mt-10">
-        <Sidebar />
+        <SidebarHistory />
       </div>
 
       <div className="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg"
@@ -116,9 +116,7 @@ const MyShopping = () => {
             className="px-4 py-2 border border-gray-400 rounded-lg"
           />
           <div className="ml-6 text-gray-400" style={{ color: textColor }}>
-            {t('shoppingHistory.youHaveProductsInHistory')}
-            {total}
-            {t('shoppingHistory.youHaveProductsInHistory2')}
+            {t('shoppingHistory.youHaveProductsInHistory')}{total}{t('shoppingHistory.youHaveProductsInHistory2')}
           </div>
         </div>
         <div className="mt-2">{renderProducts()}</div>
