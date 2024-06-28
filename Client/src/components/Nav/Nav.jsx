@@ -40,7 +40,7 @@ export default function Nav({ color }) {
     if (cartItems.length === 0 && user?.id_user) {
       dispatch(getCartByUserId(user?.id_user));
     }
-  }, [dispatch, user, cartItems]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     if (cartItems.length > 0 && isAuth) {
@@ -50,11 +50,17 @@ export default function Nav({ color }) {
         console.error("Error sending cart:", error);
       }
     }
-  }, [cartItems, user, dispatch, isAuth]);
+  }, [ user, dispatch, isAuth]);
 
   useEffect(() => {
     dispatch(changeTheme(localStorage.getItem("theme") || "light"));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (cartItems.length >= 1 && isAuth && user) {
+      dispatch(sendCart(user.id_user, cartItems));
+    }
+  }, [isAuth, user, dispatch]);
 
   const toggleCart = () => {
     setShowCart(!showCart);
@@ -89,12 +95,6 @@ export default function Nav({ color }) {
     localStorage.setItem("theme", newTheme);
   };
   const bordesPlomos = theme === "dark" ? "#4a4a4a" : "#DDDDDD";
-
-  useEffect(() => {
-    if (cartItems.length >= 1 && isAuth && user) {
-      dispatch(sendCart(user.id_user, cartItems));
-    }
-  }, [cartItems, isAuth, user, dispatch]);
 
   // Socket.io configuration
   // useEffect(() => {
@@ -145,7 +145,7 @@ export default function Nav({ color }) {
           <SearchBar className="flex items-center justify-center" />
         </div>
         <div
-          className="flex items-center gap-4"
+          className="flex items-center gap-2"
           style={{ color: bordesPlomos }}
         >
           <div className="flex items-center gap-2">
@@ -282,11 +282,12 @@ export default function Nav({ color }) {
             <div className="tooltip">
               <Link
                 to={"/favorites"}
-                className={`border hover:shadow-lg hover:border-secondary hover:text-secondary rounded-lg w-auto p-2 flex items-center ${
+                className={`border  hover:shadow-lg hover:border-secondary hover:text-secondary rounded-lg w-auto p-2  flex items-center ${
                   color === "primary"
                     ? "text-gray-200 border-gray-200"
                     : "text-gray-600 border-gray-600"
                 }`}
+                style={{ borderColor: bordesPlomos}}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" 
                     fill="none" 
@@ -301,7 +302,7 @@ export default function Nav({ color }) {
                       d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg> 
               </Link>
-              <div className="tooltiptext">Favorites</div>
+              <div className="tooltiptext">{t("nav.favorites")}</div>
             </div>
           )}
           
@@ -316,8 +317,9 @@ export default function Nav({ color }) {
           )}
           {user?.user_type === "admin" || user?.user_type === "trader" ? (
             <div className="tooltip">
-              <a
-                href={`https://neo-shop-dashboard-neoshopmarketplace.vercel.app/dashboard/${user.id_user}`}
+              <Link
+                to={`http://localhost:3000/dashboard/${user.id_user}`}
+              
                 rel="noopener noreferrer"
                 className={`border hover:shadow-lg hover:border-secondary hover:text-secondary rounded-lg w-auto p-2  flex items-center ${
                   color === "primary" ? "text-gray-200" : "text-gray-600"
@@ -338,7 +340,7 @@ export default function Nav({ color }) {
                     d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"
                   />
                 </svg>
-              </a>
+              </Link>
               <div className="tooltiptext" style={{ borderColor: bordesPlomos }}>Dashboard</div>
             </div>
           ) : (

@@ -2,6 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { deleteSessionToken } from "../../components/delCookie";
 import rutaBack from "./rutaBack"
+import { t } from "i18next";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const IS_AUTH = "IS_AUTH";
 export const ISNT_AUTH = "ISNT_AUTH";
@@ -13,14 +14,14 @@ export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const LOGIN_WITH_FACEBOOK = "LOGIN_WITH_FACEBOOK";
 export const RESET_PASS = "RESET_PASS";
 
-// LOGIN
+
 export const login = (formData,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/login/";
+    const endpoint = `${rutaBack}/login/`;
     try {
       const response = await axios.post(endpoint, formData, {
         withCredentials: true,
       });
-      toast.loading(t("toast.waiting"));
+      toast.loading(("toast.waiting"));
       if (response.data.correctLogin) {
         toast.success(t("toast.loginTrue"));
   
@@ -28,7 +29,7 @@ export const login = (formData,t) => async (dispatch) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(t("toast.loginFalse"));
+      toast.error(("toast.loginFalse"));
       localStorage.setItem("isAuth", "false");
     }
   };
@@ -58,7 +59,7 @@ export const login = (formData,t) => async (dispatch) => {
   };
   
   export const register = (formData,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/user/";
+    const endpoint = `${rutaBack}/user/`;
   
     try {
       toast.loading("Waiting...");
@@ -131,24 +132,24 @@ export const login = (formData,t) => async (dispatch) => {
     }
   };
 
-  export const updateUserAddress = (formUpdate,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/user/update";
+  export const updateUserAddress = (formUpdate, navigate) => async (dispatch) => {
+    const endpoint = `${rutaBack}/user/update`;
   
     try {
       const response = await axios.put(endpoint, formUpdate);
   
       if (response.status === 200) {
-        toast.success(t("toast.updateTrue"));
+        toast.success(("toast.updateTrue"));
         dispatch({
           type: UPDATE_USER,
           payload: response.data,
         });
         setTimeout(() => {
-          location.href = "/payPreview";
-        }, 5000);
+          navigate(-1);
+        }, 3000);
       }
     } catch (error) {
-      toast.error(t("toast.updateFalse"));
+      toast.error(("toast.updateFalse"));
       console.log(error);
     }
   };
