@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { doSignWithFacebook, doSignInWithGoogle } from "../../firebase/auth";
 import { login, resetPassword, sendNewPassword } from "../../Redux/Actions/authActions";
@@ -25,7 +25,6 @@ export default function UserFormLogin({ title, onClose }) {
   const [view, setView] = useState("login");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location= useLocation();
   const isAuth = useSelector((state) => state.auth.isAuth);
   const mailExist = useSelector((state) => state.auth.mailExist);
   const themeLocal = useState(localStorage.getItem("theme"));
@@ -82,21 +81,21 @@ export default function UserFormLogin({ title, onClose }) {
     if (noErrors && formData.newPassword === formData.confirmPassword) {
       try {
         if (view === "login") {
-          dispatch(login(formData,t));
+          dispatch(login(formData, t));
         } else if (view === "reset") {
           dispatch(sendNewPassword(formData));
         }
         
         setTimeout(() => {
-          navigate(location.pathname); // Redirigir a la misma ruta para "refrescar" la página
-        }, 50);
+          window.location.reload();
+        }, 2000);
         
       } catch (error) {
         toast.error(t("toast.emptyUser"));
         console.log(error.message);
       }
     } else {
-      toast.error(t("signUp.fixErrors"));
+      toast.error("Please fix the errors before submitting the form.");
     }
   };
 
@@ -114,18 +113,18 @@ export default function UserFormLogin({ title, onClose }) {
 
   const onFacebookSignIn = async (e) => {
     e.preventDefault();
-    dispatch(doSignWithFacebook(navigate));
+    dispatch(doSignWithFacebook());
   };
 
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
-    dispatch(doSignInWithGoogle(navigate));
+    dispatch(doSignInWithGoogle());
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <form
-        className="bg-white text-center shadow-md p-4 rounded-xl w-full max-w-sm space-y-6"
+        className="bg-white text-center shadow-md p-2 rounded-xl w-full max-w-sm space-y-6"
         onSubmit={handleSubmit}
         style={{ background: cartBackGround }}
       >
@@ -190,7 +189,7 @@ export default function UserFormLogin({ title, onClose }) {
                 )}
               </div>
             </div>
-            <div className="ml-4 mr-4 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
@@ -211,10 +210,10 @@ export default function UserFormLogin({ title, onClose }) {
                 {t("login.register")}
               </Link>
             </div>
-            <div className="mt-6 ml-10 mr-10 flex justify-center gap-2 items-center flex-col">
+            <div className="mt-6 flex justify-center gap-2 items-center flex-col">
               <button
                 onClick={onGoogleSignIn}
-                className="group h-12 w-full px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
               >
                 <div className="relative flex items-center space-x-4 justify-center">
                   <img
@@ -229,7 +228,7 @@ export default function UserFormLogin({ title, onClose }) {
               </button>
               <button
                 onClick={onFacebookSignIn}
-                className="group h-12 w-full px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
               >
                 <div className="relative flex items-center space-x-4 justify-center">
                   <img
