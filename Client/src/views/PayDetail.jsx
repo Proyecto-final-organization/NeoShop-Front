@@ -161,7 +161,7 @@ export const PayDetail = () => {
       })
       .then((orderData) => {
         const name = orderData.payer.name.given_name;
-        toast.success("Success Payment Sent! " + name);
+        toast.success(t("toast.paymentTrue") + name);
         setPaySuccess(!paySuccess);
       })
       .catch((error) => {
@@ -173,7 +173,7 @@ export const PayDetail = () => {
   useEffect(() => {
     const sendPayment = async () => {
       try {
-        await paymentOk(paymentDetail)();
+        await paymentOk(paymentDetail,t)();
         dispatch(mailPayOk(user.email, paymentDetail));
         dispatch(cleanCart());
       } catch (error) {

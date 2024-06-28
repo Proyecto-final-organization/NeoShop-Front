@@ -42,7 +42,7 @@ export const CardHome = ({
         <div className="absolute top-4 right-4">
           <div className="relative">
             <div className="transform rotate-45 rounded-t-3xl rounded-b-sm translate-x-1/2 -translate-y-1/2 w-20 bg-red-500 text-white text-center text-xs font-bold px-8 py-1 shadow-lg">
-              NEW
+              {t("homePage.new")}
             </div>
           </div>
         </div>

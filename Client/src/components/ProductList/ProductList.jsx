@@ -35,7 +35,7 @@ export default function ProductList({ allProducts }) {
       toast.success(t("toast.cartTrue"))
       dispatch(addToCart(product));
     } else {
-      toast.error("Product not available")
+      toast.error(t("toast.productNotAvailable"))
     }
     
   };
@@ -44,14 +44,14 @@ export default function ProductList({ allProducts }) {
     const id_product = product.id_product;
     const isFavorite = favoriteIds.includes(id_product);
     if (!id_user) {
-      toast.error("User not logged in")
+      toast.error(t("toast.notLogin"))
     }
     else if (id_user, isFavorite) {
-      toast.success("Removed from favorites");
+      toast.success(t("favorites.removed"));
       dispatch(removeFromFavorites(product));
       dispatch(deleteFavoriteItem(id_product, id_user));
     } else {
-      toast.success("Added to favorites");
+      toast.success(t("favorites.added"));
       dispatch(addToFavorites(product));
       dispatch(sendFavorites(id_product, id_user));
     }
