@@ -55,12 +55,12 @@ const LandingPage = () => {
           >
             {t("WelcomeText")}
           </p>
-          <button
+          <Link to="/home"
             className="px-6 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-gray-900 font-semibold rounded-lg shadow-lg transform transition-transform duration-100 active:translate-y-[5%] hover:shadow-sm active:shadow-2xl"
-            onClick={() => (window.location.href = "/home")}
+           
           >
             <strong>{t("StoreButtonLanding")}</strong>
-          </button>
+          </Link>
         </div>
       </header>
       <section
