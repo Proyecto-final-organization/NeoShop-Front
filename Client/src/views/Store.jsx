@@ -14,14 +14,13 @@ export const Store = () => {
   const textColor = theme === "dark" ? "#b3b3b3" : "#2b2b2b";
 
   return (
-    <>
-      <div className="shadow-sm">
-        <Nav />
-      </div>
       <div
         className="min-h-screen text-center bg-gray-100"
         style={{ background: backgroundColor }}
       >
+        <div className="shadow-sm">
+            <Nav />
+        </div>
         <div
           className="flex justify-center text-center flex-col py-8"
           style={{ background: backgroundColor }}
@@ -34,6 +33,5 @@ export const Store = () => {
           </div>
         </div>
       </div>
-    </>
   );
 };
