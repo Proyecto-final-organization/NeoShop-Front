@@ -85,11 +85,6 @@ export default function UserFormLogin({ title, onClose }) {
         } else if (view === "reset") {
           dispatch(sendNewPassword(formData));
         }
-        
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-        
       } catch (error) {
         toast.error(t("toast.emptyUser"));
         console.log(error.message);
