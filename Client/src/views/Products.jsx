@@ -40,7 +40,7 @@ export const Products = () => {
 
   return (
     <div
-      className={`w-full text-center gap-2 ${theme === 'dark' ? 'text-white' : 'bg-gray-300'}`}
+      className={`w-full  text-center gap-2 ${theme === 'dark' ? 'text-white' : 'bg-gray-300'}`}
       style={{ backgroundColor: theme === 'dark' ? '#212121' : 'rgb(243, 244, 246)' }}
     >
       <div className="shadow-sm">

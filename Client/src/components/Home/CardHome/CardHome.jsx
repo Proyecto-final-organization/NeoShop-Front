@@ -33,7 +33,7 @@ export const CardHome = ({
           className="justify-center items-center"
         >
           <img
-            className="w-64 h-64 object-cover"
+            className="w-64 rounded-xl h-64 object-cover"
             src={img_product}
             alt=""
           />
