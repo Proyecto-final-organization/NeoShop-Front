@@ -13,7 +13,7 @@ export default function EditProductPage(){
         if(!product){
             return;
         }
-            axios.get('http://localhost:3001/product/id/'+product).then(response => {
+            axios.get('https://neoshop-back.onrender.com/product/id/'+product).then(response => {
             setProductInfo(response.data)
         })
     },[product])

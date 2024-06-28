@@ -16,11 +16,11 @@ export default function DeleteProductPage() {
       return;
     }
     axios
-      .get("http://localhost:3001/product/id/" + product)
+      .get("https://neoshop-back.onrender.com/product/id/" + product)
       .then((response) => {
         setProductInfo(response.data);
       });
-    axios.get(`http://localhost:3001/store/user/${id}`).then((response) => {
+    axios.get(`https://neoshop-back.onrender.com/store/user/${id}`).then((response) => {
       setStoreData(response.data);
     });
   }, [id]);
@@ -33,7 +33,7 @@ export default function DeleteProductPage() {
       id_store: storeData.id_store,
       available: false,
     };
-    await axios.put("http://localhost:3001/product/update", data);
+    await axios.put("https://neoshop-back.onrender.com/product/update", data);
     goBack()
   }
   if (!storeData) {

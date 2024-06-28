@@ -15,12 +15,12 @@ export default function Products({ user }) {
     const fetchData = async () => {
       if (id) {
         try {
-          const storeResponse = await axios.get(`http://localhost:3001/store/user/${id}`);
+          const storeResponse = await axios.get(`https://neoshop-back.onrender.com/store/user/${id}`);
           setStoreData(storeResponse.data);
           setLoading(false); // Marcar como no cargando una vez que se recibe la respuesta
 
           if (storeResponse.status === 200 && storeResponse.data?.id_store) {
-            const productsResponse = await axios.get(`http://localhost:3001/product/allProductsStore/` + storeResponse.data.id_store);
+            const productsResponse = await axios.get(`https://neoshop-back.onrender.com/product/allProductsStore/` + storeResponse.data.id_store);
             
             // Filtrar productos disponibles
             const availableProducts = productsResponse.data.filter(product => product.available);
@@ -45,8 +45,10 @@ export default function Products({ user }) {
       <table className="basic mt-2">
         <thead>
           <tr>
+            <td>Image</td>
             <td>Product Name</td>
-            <td></td>
+            <td>Stock</td>
+            <td>Actions</td>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +59,9 @@ export default function Products({ user }) {
           ) : products.length > 0 ? (
             products.map((product) => (
               <tr key={product?.id_product}>
+                <td><img src={product?.img_product[0]} width={64} height={64} /></td>
                 <td>{product?.name}</td>
+                <td>{product?.quantity}</td>
                 <td>
                   {storeData && (
                     <>

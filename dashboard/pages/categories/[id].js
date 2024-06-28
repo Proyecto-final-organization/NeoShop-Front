@@ -21,7 +21,7 @@ export default function Categories({ user }) {
 
   async function fetchCategories() {
     try {
-      const result = await axios.get(`http://localhost:3001/category/`);
+      const result = await axios.get(`https://neoshop-back.onrender.com/category/`);
       setCategories(result.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -40,14 +40,14 @@ export default function Categories({ user }) {
         data.id = editedCategory.id;
         // Aquí actualizamos la categoría si existe
         const response = await axios.put(
-          `http://localhost:3001/category/update/${editedCategory.id}`,
+          `https://neoshop-back.onrender.com/category/update/${editedCategory.id}`,
           data
         );
         console.log(response);
         setEditedCategory(null);
       } else {
         const response = await axios.post(
-          "http://localhost:3001/category/",
+          "https://neoshop-back.onrender.com/category/",
           data
         );
         console.log(response);
@@ -86,7 +86,7 @@ export default function Categories({ user }) {
       .then(async (result) => {
         if (result.isConfirmed) {
           try {
-            await axios.delete(`http://localhost:3001/category/${category.id_category}`);
+            await axios.delete(`https://neoshop-back.onrender.com/category/${category.id_category}`);
             fetchCategories();
           } catch (error) {
             console.error("Error deleting category:", error);

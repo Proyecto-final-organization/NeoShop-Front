@@ -31,7 +31,7 @@ const StoreDetail = () => {
   }, [dispatch, id]);
 
   return (
-    <div style={{ background: backgroundColor }}>
+    <div className="h-screen" style={{ background: backgroundColor }}>
       <Nav />
       <div
         className="detail-container"

@@ -1,27 +1,22 @@
-import { CardHome } from "../CardHome/CardHome";
+import { FavoriteCard } from "./FavoriteCard";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { addToFavorites, sendFavorites, removeFromFavorites, deleteFavoriteItem } from "../../../Redux/Actions/favoritesActions";
+import { addToFavorites, sendFavorites, removeFromFavorites, deleteFavoriteItem } from "../../Redux/Actions/favoritesActions";
 import { useTranslation } from "react-i18next";
 
-export const CardHomeList = ({ allProducts }) => {
-  const transparent = "#ffffff00";
-
-  const favorites = useSelector((state) => state.favorites.favItems);
+export const FavoritesList = ({ favorites }) => {
   const favoriteIds = favorites.map(fav => fav.id_product);
   const user = useSelector((state) => state.auth.user);
   const id_user = user.id_user
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
   const handleAddToFav = (product) => {
     const id_product = product.id_product;
     const isFavorite = favoriteIds.includes(id_product);
-    if (!id_user) {
-      toast.error(t("toast.notLogin"))
-    }
-    else if (id_user, isFavorite) {
+  
+    if (isFavorite) {
       toast.success(t("favorites.removed"));
       dispatch(removeFromFavorites(product));
       dispatch(deleteFavoriteItem(id_product, id_user));
@@ -33,16 +28,15 @@ export const CardHomeList = ({ allProducts }) => {
   };
 
   return (
-    <div className="max-w-screen mx-4 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12" style={{border:transparent}}>
-      {allProducts?.map(product => (
-        <CardHome 
+    <div className="items-center text-left p-4 rounded-lg justify-between w-full flex-grow">
+      {favorites?.map(product => (
+        <FavoriteCard 
           key={product.id_product} 
           id_product={product.id_product}
           name={product.name}
-          store={product.store}
-          img_product={product.img_product[0]}
+          img_product={product.img_product}
           price={product.price}
-          date_creation={product.date_creation}
+          description={product.description}
           onAddToFav={() => handleAddToFav(product)}
         />
       ))}

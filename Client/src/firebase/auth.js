@@ -2,22 +2,16 @@ import { FacebookAuthProvider, GoogleAuthProvider, signInWithPopup } from "fireb
 import { auth } from "./firebase";
 import store from "../Redux/Store/Store";
 import { loginWithFacebook, loginWithGoogle } from "../Redux/Actions/authActions";
+import rutaBack from "../Redux/Actions/rutaBack";
+import toast from "react-hot-toast";
 
-// export const doCreateUserWithEmailAndPassword = async (email, password) => {
-//   return createUserWithEmailAndPassword(auth, email, password);
-// };
-
-// export const doSignInWithEmailAndPassowrd = async (email, password) => {
-//   return signInWithEmailAndPassword(auth, email, password);
-// };
-
-export const doSignInWithGoogle = async () => {
+export const doSignInWithGoogle = async (navigate) => {
   try {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const token = await result.user.getIdToken();
 
-    const response = await fetch("http://localhost:3001/login/auth/third", {
+    const response = await fetch(`${rutaBack}/login/auth/third`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,22 +33,25 @@ export const doSignInWithGoogle = async () => {
 
       store.dispatch(loginWithGoogle(userInfo));
       localStorage.setItem("authToken", token);
-      window.location.href = "/Home";
+      navigate("/Home");
     } else {
       throw new Error("Error al enviar el token al backend");
     }
   } catch (error) {
     console.error("Error:", error);
+    if(error.message === "Firebase: Error (auth/account-exists-with-different-credential)."){
+     toast.error(("You are already registered with this email"))
+    };
   }
 };
 
-export const doSignWithFacebook = async () => {
+export const doSignWithFacebook = async (navigate) => {
   try {
     const provider = new FacebookAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const token = await result.user.getIdToken()
 
-    const response = await fetch("http://localhost:3001/login/auth/third", {
+    const response = await fetch(`${rutaBack}/login/auth/third`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,12 +71,15 @@ export const doSignWithFacebook = async () => {
 
       store.dispatch(loginWithFacebook(userInfo));
       localStorage.setItem("authToken", token);
-      window.location.href = "/Home";
+      navigate( "/Home");
     } else {
       throw new Error("Error al enviar el token al backend");
     }
   } catch (error) {
     console.error("Error:", error);
+    if(error.message === "Firebase: Error (auth/account-exists-with-different-credential)."){
+      toast.error(("You are already registered with this email"))
+     };
   }  
 };
 

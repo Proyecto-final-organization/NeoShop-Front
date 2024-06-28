@@ -15,7 +15,7 @@ export default function NewProduct() {
       if (id) {
         try {
           const response = await axios.get(
-            `http://localhost:3001/store/user/${id}`
+            `https://neoshop-back.onrender.com/store/user/${id}`
           );
           setStoreData(response.data);
         } catch (error) {

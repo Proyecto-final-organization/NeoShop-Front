@@ -1,7 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { deleteSessionToken } from "../../components/delCookie";
-import rutaBack from "./rutaBack"
+import rutaBack from "./rutaBack";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const IS_AUTH = "IS_AUTH";
 export const ISNT_AUTH = "ISNT_AUTH";
@@ -13,9 +13,10 @@ export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const LOGIN_WITH_FACEBOOK = "LOGIN_WITH_FACEBOOK";
 export const RESET_PASS = "RESET_PASS";
 
-// LOGIN
+
+
 export const login = (formData,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/login/";
+    const endpoint = `${rutaBack}/login/`;
     try {
       const response = await axios.post(endpoint, formData, {
         withCredentials: true,
@@ -58,13 +59,13 @@ export const login = (formData,t) => async (dispatch) => {
   };
   
   export const register = (formData,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/user/";
+    const endpoint = `${rutaBack}/user/`;
   
     try {
-      toast.loading("Waiting...");
+      toast.loading(t("toast.waiting"));
       const response = await axios.post(`${endpoint}`, formData);
   
-      toast.loading(t("toast.waiting"));
+     
       if (response.status === 200) {
         toast.success(t("toast.registerTrue"));
   
@@ -131,8 +132,8 @@ export const login = (formData,t) => async (dispatch) => {
     }
   };
 
-  export const updateUserAddress = (formUpdate,t) => async (dispatch) => {
-    const endpoint = "http://localhost:3001/user/update";
+  export const updateUserAddress = (formUpdate, navigate, t) => async (dispatch) => {
+    const endpoint = `${rutaBack}/user/update`;
   
     try {
       const response = await axios.put(endpoint, formUpdate);
@@ -144,8 +145,8 @@ export const login = (formData,t) => async (dispatch) => {
           payload: response.data,
         });
         setTimeout(() => {
-          location.href = "/payPreview";
-        }, 5000);
+          navigate(-1);
+        }, 3000);
       }
     } catch (error) {
       toast.error(t("toast.updateFalse"));
@@ -153,35 +154,38 @@ export const login = (formData,t) => async (dispatch) => {
     }
   };
 
-  export const resetPassword = (email) => async (dispatch) => {
-    const endpoint = `${rutaBack}/user/forgot-password`;
+export const resetPassword = (email) => async (dispatch) => {
+  const endpoint = `${rutaBack}/user/forgot-password`;
 
-    try {
-      const response = await axios.post(endpoint, {email});
-      console.log (response);
-      if (response.status === 200){
-        toast.success ("We sent you an email, check it please")
-        dispatch({
-          type: RESET_PASS,
-          payload: true,
-        })
-      }
-    } catch (error) {
-      console.log (error.message)
-      toast.error("Error email doesn't exist")
+  try {
+    const response = await axios.post(endpoint, { email });
+    console.log(response);
+    if (response.status === 200) {
+      toast.success("We sent you an email, check it please");
+      dispatch({
+        type: RESET_PASS,
+        payload: true,
+      });
     }
+  } catch (error) {
+    console.log(error.message);
+    toast.error("Error email doesn't exist");
   }
+};
 
-  export const sendNewPassword = (formData) => async (dispatch) => {
-    const endpoint = `${rutaBack}/user/reset-password`;
+export const sendNewPassword = (formData) => async () => {
+  const endpoint = `${rutaBack}/user/reset-password`;
 
-    try {
-      const response = await axios.post(endpoint, {password: formData.newPassword, token: formData.token});
-      if (response.status === 200){
-        toast.success ("Password changed with success")}
-    } catch (error) {
-      console.log (error.message)
-      toast.error("Error: the password could not be replaced, please try again")
-      
+  try {
+    const response = await axios.post(endpoint, {
+      password: formData.newPassword,
+      token: formData.token,
+    });
+    if (response.status === 200) {
+      toast.success("Password changed with success");
     }
+  } catch (error) {
+    console.log(error.message);
+    toast.error("Error: the password could not be replaced, please try again");
   }
+};
