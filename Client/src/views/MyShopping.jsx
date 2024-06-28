@@ -116,7 +116,9 @@ const MyShopping = () => {
             className="px-4 py-2 border border-gray-400 rounded-lg"
           />
           <div className="ml-6 text-gray-400" style={{ color: textColor }}>
-            {t('shoppingHistory.youHaveProductsInHistory')}{total}{t('shoppingHistory.youHaveProductsInHistory2')}
+            {t('shoppingHistory.youHaveProductsInHistory')}
+            {total}
+            {t('shoppingHistory.youHaveProductsInHistory2')}
           </div>
         </div>
         <div className="mt-2">{renderProducts()}</div>

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 
 export const FavoriteCard = ({
     brand,
@@ -11,6 +13,7 @@ export const FavoriteCard = ({
     onAddToFav,
 }) => {
     const theme = useSelector((state) => state.themes.theme);
+    const { t } = useTranslation();
 
     const backgroundColor = theme === "dark" ? "#171717" : "#F3F4F6";
     const textColor = theme === "dark" ? "#b3b3b3" : "#2b2b2b";
@@ -39,7 +42,7 @@ export const FavoriteCard = ({
                 <div>
                   <p className="text-2xl text-lg mb-2" style={{ color: textColor }}>{description}</p>
                 </div>
-                <p className="text-2xl text-lg" style={{ color: textColor }}>Price: ${price}</p>
+                <p className="text-2xl text-lg" style={{ color: textColor }}>{t("favorites.price")}: ${price}</p>
               </div>
             </div>
           </div>

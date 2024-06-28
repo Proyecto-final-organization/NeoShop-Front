@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { doSignWithFacebook, doSignInWithGoogle } from "../../firebase/auth";
 import { login, resetPassword, sendNewPassword } from "../../Redux/Actions/authActions";
@@ -81,7 +81,7 @@ export default function UserFormLogin({ title, onClose }) {
     if (noErrors && formData.newPassword === formData.confirmPassword) {
       try {
         if (view === "login") {
-          dispatch(login(formData));
+          dispatch(login(formData,t));
         } else if (view === "reset") {
           dispatch(sendNewPassword(formData));
         }
@@ -95,7 +95,7 @@ export default function UserFormLogin({ title, onClose }) {
         console.log(error.message);
       }
     } else {
-      toast.error(t("toast.badSubmmit"));
+      toast.error(t("signUp.fixErrors"));
     }
   };
 

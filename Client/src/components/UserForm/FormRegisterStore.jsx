@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function FormRegisterStore({  user }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     address_cp: "",
     address_country: "",
@@ -26,7 +27,7 @@ export default function FormRegisterStore({  user }) {
   const themeLocal = useState(localStorage.getItem("theme"));
   const theme = themeLocal[0];
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate()
+
 
   // const theme = 'light';
 
@@ -97,9 +98,6 @@ export default function FormRegisterStore({  user }) {
   useEffect(() => {
     setErrors(memoizedErrors);
   }, [memoizedErrors]);
-
-  console.log(formData);
-  console.log(img);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

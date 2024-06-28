@@ -7,15 +7,19 @@ import { useNavigate } from "react-router-dom";
 import { cleanCart } from "../Redux/Actions/cartActions";
 import { mailPayOk, paymentOk } from "../Redux/Actions/payActions";
 import { useTranslation } from "react-i18next";
+import SuccessMessage from "../components/PaySuccessButton/SuccessMessage";
+// import { useTranslation } from "react-i18next";
 
 export const PayDetail = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
+  console.log (cartItems);
   const user = useSelector((state) => state.auth.user);
   const ship = useSelector((state) => state.pay.delivery);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
+  const [paySuccess, setPaySuccess] = useState(false);
   const [subtotal, setSubtotal] = useState(0);
   const [comission, setComission] = useState(0);
   const [finalTotal, setFinalTotal] = useState(0);
@@ -31,7 +35,6 @@ export const PayDetail = () => {
     amount: "",
     date: "",
   });
-
   const [loading, setLoading] = useState(true);
 
   const themeLocal = useState(localStorage.getItem("theme"));
@@ -46,12 +49,16 @@ export const PayDetail = () => {
       return accumulator + parseFloat(item.price) * item.cartQuantity;
     }, 0);
 
-    const calculatedComission = calculatedSubtotal * 0.15;
-    const calculatedFinalTotal = (
-      calculatedSubtotal +
-      calculatedComission +
-      4.95
-    ).toFixed(2);
+    const calculatedComissionNumber = (calculatedSubtotal * 0.15).toFixed(2);
+
+    // Convierte la comisión de nuevo a número para sumarlo correctamente
+        const calculatedComission = parseFloat(calculatedComissionNumber);
+        const calculatedFinalTotal = (
+          calculatedSubtotal +
+          calculatedComission +
+          4.95
+        ).toFixed(2);
+    
 
     setSubtotal(calculatedSubtotal);
     setComission(calculatedComission);
@@ -68,9 +75,9 @@ export const PayDetail = () => {
       amount: calculatedFinalTotal,
       date: "",
     });
-
+    
     setLoading(false); // Cambiar loading a false una vez que todo este cargado
-  }, [cartItems, user]);
+  }, [cartItems, user, ship]);
 
   async function createOrder() {
     const purchaseUnits = cartItems.map((item) => ({
@@ -125,6 +132,7 @@ export const PayDetail = () => {
       });
   }
 
+
   async function onApprove(data) {
     setPaymentId(data.orderID);
     setPaymentDetail((prevDetail) => ({
@@ -153,10 +161,8 @@ export const PayDetail = () => {
       })
       .then((orderData) => {
         const name = orderData.payer.name.given_name;
-        // toast.success(t("toast.paymentTrue") + name);
-        setTimeout(() => {
-          location.href = "/";
-        }, 2000);
+        toast.success(t("toast.paymentTrue") + name);
+        setPaySuccess(!paySuccess);
       })
       .catch((error) => {
         console.error("Error capturing order:", error);
@@ -167,8 +173,7 @@ export const PayDetail = () => {
   useEffect(() => {
     const sendPayment = async () => {
       try {
-        const response = await paymentOk(paymentDetail,t)();
-        console.log(response);
+        await paymentOk(paymentDetail,t)();
         dispatch(mailPayOk(user.email, paymentDetail));
         dispatch(cleanCart());
       } catch (error) {
@@ -180,6 +185,9 @@ export const PayDetail = () => {
       sendPayment();
     }
   }, [dispatch, paymentDetail, user.email]);
+  if (paySuccess) {
+    return <SuccessMessage />;
+  }
 
   return (
     <div
@@ -294,3 +302,4 @@ export const PayDetail = () => {
     </div>
   );
 };
+

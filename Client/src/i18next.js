@@ -271,6 +271,8 @@ const resources = {
         rating: "The rating must be between 1 and 5.",
         reviewTrue: "Review submitted successfully!",
         reviewFalse: "Review Failed. Please try again.",
+        notLogin:"User not logged in",
+        productNotAvailable:"Product not available"
       },
       forgot: "Forgot your password?",
       favorites: {
@@ -278,6 +280,9 @@ const resources = {
         youHave: "You have ",
         youHave2: "products on Favorites",
         search: "Search for products...",
+        price:"Price",
+        removed:"Removed from favorites",
+        added:"Added to favorites"
       },
       accountDetail: {
         yourAccountDetails: "Your account details",
@@ -300,7 +305,8 @@ const resources = {
       shoppingHistory: {
         yourShoppingHistory: "Your shopping history",
         searchForProducts: "Search for products...",
-        youHaveProductsInHistory: "You have {total} products in your history",
+        youHaveProductsInHistory: "You have "  ,
+        youHaveProductsInHistory2: " products in your history"
       },
       addTocart: "Add to cart",
       nav: {
@@ -403,7 +409,7 @@ const resources = {
         terms: "Términos",
         privacy: "Privacidad",
         security: "Seguridad",
-        fixErrors: "Porfavor corrija los errores antes de enviar.",
+        fixErrors: "Por favor, corrija los errores antes de enviar.",
         registerFailed: "Error en el registro. Porfavor Inténtalo de nuevo.",
       },
       testimonials: [
@@ -597,6 +603,9 @@ const resources = {
         rating: "La calificacion debe estar entre 1 y 5",
         reviewTrue: "Review publicada",
         reviewFalse: "Por favor intentelo denuevo",
+        notLogin:"Usuario no autentificado",
+        productNotAvailable:"Producto no disponible",
+        
       },
       forgot: "¿Te olvidaste tu contraseña?",
       favorites: {
@@ -604,6 +613,9 @@ const resources = {
         youHave: "Tienes ",
         youHave2: "productos en tu lista de favoritos",
         search: "Buscar productos...",
+        price:"Precio",
+        removed:"Eliminado de favoritos",
+        added:"Añadido a favoritos",       
       },
       accountDetail: {
         yourAccountDetails: "Detalles de tu cuenta",
@@ -621,6 +633,7 @@ const resources = {
           youHave: "Tienes ",
           youHave2: " productos en Favoritos",
           search: "Buscar productos...",
+          price:"Precio"
         },
       },
       shoppingHistory: {

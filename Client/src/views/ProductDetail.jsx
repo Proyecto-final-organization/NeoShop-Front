@@ -112,10 +112,10 @@ const ProductDetail = () => {
 
   const handleAddToCart = (product) => {  
     if (isAvailable) {
-      toast.success("Add to cart");
+      toast.success(t("toast.cartTrue"));
       dispatch(addToCart(product));
     } else {
-      toast.error("Product not available");
+      toast.error(t("toast.productNotAvailable"));
     }
     
   };
@@ -124,14 +124,14 @@ const ProductDetail = () => {
     const id_product = product.id_product;
     const isFavorite = favoriteIds.includes(id_product);
     if (!id_user) {
-      toast.error("User not logged in")
+      toast.error(t("toast.notLogin"))
     }
     else if (id_user, isFavorite) {
-      toast.success("Removed from favorites");
+      toast.success(t("favorites.removed"));
       dispatch(removeFromFavorites(product));
       dispatch(deleteFavoriteItem(id_product, id_user));
     } else {
-      toast.success("Added to favorites");
+      toast.success(t("favorites.added"));
       dispatch(addToFavorites(product));
       dispatch(sendFavorites(id_product, id_user));
     }
@@ -188,6 +188,7 @@ const ProductDetail = () => {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
+      
     } catch (error) {
       toast.error(t("toast.reviewFalse"));
     }
@@ -326,7 +327,7 @@ const ProductDetail = () => {
               </svg>
             </button>
             </div>
-            <p className="brand">Seller:</p>
+            <p className="brand">{t("productDetail.seller")}:</p>
             <div className="seller-cont"style={{ borderColor: bordesPlomos}} >
               <img
                 className="seller-image"
