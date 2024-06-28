@@ -16,7 +16,7 @@ export const Store = () => {
   return (
     <>
       <div className="shadow-sm">
-        <Nav color={"primary"} />
+        <Nav />
       </div>
       <div
         className="min-h-screen text-center bg-gray-100"
