@@ -22,7 +22,7 @@ export default function PaymentDetail() {
 
   const fetchDataUser = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/user/${id}`);
+      const response = await axios.get(`https://neoshop-back.onrender.com/user/${id}`);
       setDataUser(response.data);
     } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ export default function PaymentDetail() {
   const fetchDataPay = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/paying/id/${sales}`
+        `https://neoshop-back.onrender.com/paying/id/${sales}`
       );
       setDataPaying(response.data);
     } catch (error) {
@@ -42,7 +42,7 @@ export default function PaymentDetail() {
 
   const fetchDataStore = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/store/${store}`);
+      const response = await axios.get(`https://neoshop-back.onrender.com/store/${store}`);
       setDataStore(response.data);
     } catch (error) {
       console.log(error);

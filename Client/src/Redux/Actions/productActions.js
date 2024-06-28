@@ -102,11 +102,10 @@ export const getAllProducts = () => {
   };
   
 export const getAllCategories = () => {
-    const endpoint = `${rutaBack}/category`;
   
     return async (dispatch) => {
       try {
-        const response = await axios.get(`${endpoint}`);
+        const response = await axios.get(`${rutaBack}/category`);
         return dispatch({
           type: GET_ALL_CATEGORIES,
           payload: response.data,
@@ -118,11 +117,10 @@ export const getAllCategories = () => {
   };
   
   export const getAllBrands = () => {
-    const endpoint = `${rutaBack}/brand` ;
   
     return async (dispatch) => {
       try {
-        const response = await axios.get(`${endpoint}`);
+        const response = await axios.get(`${rutaBack}/brand`);
         return dispatch({
           type: GET_ALL_BRANDS,
           payload: response.data,

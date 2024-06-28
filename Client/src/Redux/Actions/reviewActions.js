@@ -1,5 +1,4 @@
 import axios from "axios";
-import toast from "react-hot-toast";
 import rutaBack from "./rutaBack";
 export const NEW_REVIEW = "NEW_REVIEW";
 export const NEW_REVIEW_FAILURE = "NEW_REVIEW_FAILURE";

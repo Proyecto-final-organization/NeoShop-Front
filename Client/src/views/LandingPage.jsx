@@ -13,7 +13,6 @@ const LandingPage = () => {
   const backgroundColor = theme === "dark" ? "#171717" : "#F3F4F6";
   const textColorH1 = theme === "dark" ? "#b3b3b3" : "#FFFFFF";
   const textColor = theme === "dark" ? "#b3b3b3" : "#2b2b2b";
-
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800"

@@ -15,7 +15,7 @@ export default function ProfileUser({ user, onClose }) {
   const fetchStore = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/store/user/${user.id_user}`
+        `https://neoshop-back.onrender.com/store/user/${user.id_user}`
       );
       setDataStore(response.data);
     } catch (error) {

@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+
 export default function Layout({ children, userId, user }) {
   const [showNav, setShowNav] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -15,7 +16,7 @@ export default function Layout({ children, userId, user }) {
       if (userId) {
         try {
           const response = await axios.get(
-            `http://localhost:3001/user/${userId}`
+            `https://neoshop-back.onrender.com/user/${userId}`
           );
           setUserData(response.data);
           if(response.data.user_type === "admin"){

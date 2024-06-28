@@ -8,6 +8,7 @@ import { cleanCart } from "../Redux/Actions/cartActions";
 import { mailPayOk, paymentOk } from "../Redux/Actions/payActions";
 import { useTranslation } from "react-i18next";
 import SuccessMessage from "../components/PaySuccessButton/SuccessMessage";
+import rutaBack from "../Redux/Actions/rutaBack";
 // import { useTranslation } from "react-i18next";
 
 export const PayDetail = () => {
@@ -90,7 +91,7 @@ export const PayDetail = () => {
       },
     }));
 
-    return await fetch("http://localhost:3001/paypal/create-order", {
+    return await fetch(`${rutaBack}/paypal/create-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +142,7 @@ export const PayDetail = () => {
       date: new Date().toISOString(),
     }));
     return await fetch(
-      `http://localhost:3001/paypal/capture-order/${data.orderID}`,
+      `${rutaBack}/paypal/capture-order/${data.orderID}`,
       {
         method: "POST",
         headers: {

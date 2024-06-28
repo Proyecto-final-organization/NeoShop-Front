@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import Image from "next/image";
+import rutaBack from "../../Client/src/Redux/Actions/rutaBack";
 
 export default function ProductForm({
   store,
@@ -40,7 +41,7 @@ export default function ProductForm({
 
   async function fetchCategories() {
     try {
-      const result = await axios.get(`http://localhost:3001/category/`);
+      const result = await axios.get(`${rutaBack}/category/`);
       setCategories(result.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -51,7 +52,7 @@ export default function ProductForm({
     if (id) {
       try {
         const response = await axios.get(
-          `http://localhost:3001/store/user/${id}`
+          `https://neoshop-back.onrender.com/store/user/${id}`
         );
         setStoreData(response.data);
       } catch (error) {
@@ -75,7 +76,7 @@ export default function ProductForm({
         storeIdStore,
         brand: brand,
       };
-      await axios.put(`http://localhost:3001/product/update`, {
+      await axios.put(`https://neoshop-back.onrender.com/product/update`, {
         ...data,
         id_store: storeIdStore,
         id_product,
@@ -92,7 +93,7 @@ export default function ProductForm({
         storeIdStore,
         brand: brand,
       };
-      await axios.post("http://localhost:3001/product/", data);
+      await axios.post("https://neoshop-back.onrender.com/product/", data);
     }
     setGoToProduct(true);
   }
@@ -109,7 +110,7 @@ export default function ProductForm({
       for (const file of files) {
         data.append("file", file);
       }
-      const res = await axios.post("http://localhost:3001/images/upload", data);
+      const res = await axios.post("https://neoshop-back.onrender.com/images/upload", data);
 
       setImages((oldImages) => [...oldImages, ...res.data.links]);
       setIsUploading(false);

@@ -16,7 +16,7 @@ export default function OrdersPage({ user }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/user/${id}`);
+        const response = await axios.get(`https://neoshop-back.onrender.com/user/${id}`);
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -32,7 +32,7 @@ export default function OrdersPage({ user }) {
     const fetchStoreData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/store/user/${id}`
+          `https://neoshop-back.onrender.com/store/user/${id}`
         );
         setStoreData(response.data);
       } catch (error) {
@@ -51,7 +51,7 @@ export default function OrdersPage({ user }) {
     const fetchOrdersData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/paying/store/${storeData.id_store}`
+          `https://neoshop-back.onrender.com/paying/store/${storeData.id_store}`
         );
         setOrders(response.data);
       } catch (error) {
