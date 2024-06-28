@@ -11,6 +11,7 @@ export const AdressUser = () => {
   const theme = useSelector((state) => state.themes.theme);
   const navigate = useNavigate()
   const img = useSelector((state) => state.updateImage.images); // Obtener la imagen del store
+  const { t, i18n } = useTranslation();
 
   const backgroundColor = theme === "dark" ? "#212121" : "#F3F4F6";
   const cartBackGround = theme === "dark" ? "#1c1c1c" : "#FFFFFF";
@@ -39,7 +40,7 @@ export const AdressUser = () => {
     }
   }, [user]);
 
-  const { t } = useTranslation();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -132,7 +132,7 @@ export const login = (formData,t) => async (dispatch) => {
     }
   };
 
-  export const updateUserAddress = (formUpdate, navigate) => async (dispatch) => {
+  export const updateUserAddress = (formUpdate, navigate, t) => async (dispatch) => {
     const endpoint = `${rutaBack}/user/update`;
   
     try {
