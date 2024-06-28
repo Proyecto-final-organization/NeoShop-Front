@@ -3,6 +3,7 @@ import { auth } from "./firebase";
 import store from "../Redux/Store/Store";
 import { loginWithFacebook, loginWithGoogle } from "../Redux/Actions/authActions";
 import rutaBack from "../Redux/Actions/rutaBack";
+import toast from "react-hot-toast";
 
 export const doSignInWithGoogle = async () => {
   try {
@@ -38,6 +39,9 @@ export const doSignInWithGoogle = async () => {
     }
   } catch (error) {
     console.error("Error:", error);
+    if(error.message === "Firebase: Error (auth/account-exists-with-different-credential)."){
+     toast.error(("You are already registered with this email"))
+    };
   }
 };
 
@@ -73,6 +77,9 @@ export const doSignWithFacebook = async () => {
     }
   } catch (error) {
     console.error("Error:", error);
+    if(error.message === "Firebase: Error (auth/account-exists-with-different-credential)."){
+      toast.error(("You are already registered with this email"))
+     };
   }  
 };
 
