@@ -19,7 +19,7 @@ export const Store = () => {
         style={{ background: backgroundColor }}
       >
         <div className="shadow-sm">
-            <Nav />
+            <Nav color={"primary"} />
         </div>
         <div
           className="flex justify-center text-center flex-col py-8"
