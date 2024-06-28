@@ -124,7 +124,7 @@ export default function UserFormLogin({ title, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <form
-        className="bg-white text-center shadow-md p-2 rounded-xl w-full max-w-sm space-y-6"
+        className="bg-white text-center shadow-md p-4 rounded-xl w-full max-w-sm space-y-6"
         onSubmit={handleSubmit}
         style={{ background: cartBackGround }}
       >
@@ -189,7 +189,7 @@ export default function UserFormLogin({ title, onClose }) {
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="ml-4 mr-4 flex items-center justify-between">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
@@ -210,10 +210,10 @@ export default function UserFormLogin({ title, onClose }) {
                 {t("login.register")}
               </Link>
             </div>
-            <div className="mt-6 flex justify-center gap-2 items-center flex-col">
+            <div className="mt-6 ml-10 mr-10 flex justify-center gap-2 items-center flex-col">
               <button
                 onClick={onGoogleSignIn}
-                className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                className="group h-12 w-full px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
               >
                 <div className="relative flex items-center space-x-4 justify-center">
                   <img
@@ -228,7 +228,7 @@ export default function UserFormLogin({ title, onClose }) {
               </button>
               <button
                 onClick={onFacebookSignIn}
-                className="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                className="group h-12 w-full px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
               >
                 <div className="relative flex items-center space-x-4 justify-center">
                   <img
