@@ -4,9 +4,8 @@ import store from "../Redux/Store/Store";
 import { loginWithFacebook, loginWithGoogle } from "../Redux/Actions/authActions";
 import rutaBack from "../Redux/Actions/rutaBack";
 import toast from "react-hot-toast";
-import { Navigate } from "react-router-dom";
 
-export const doSignInWithGoogle = async () => {
+export const doSignInWithGoogle = async (navigate) => {
   try {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
@@ -34,7 +33,7 @@ export const doSignInWithGoogle = async () => {
 
       store.dispatch(loginWithGoogle(userInfo));
       localStorage.setItem("authToken", token);
-      Navigate("/Home");
+      navigate("/Home");
     } else {
       throw new Error("Error al enviar el token al backend");
     }
@@ -46,7 +45,7 @@ export const doSignInWithGoogle = async () => {
   }
 };
 
-export const doSignWithFacebook = async () => {
+export const doSignWithFacebook = async (navigate) => {
   try {
     const provider = new FacebookAuthProvider();
     const result = await signInWithPopup(auth, provider);
@@ -72,7 +71,7 @@ export const doSignWithFacebook = async () => {
 
       store.dispatch(loginWithFacebook(userInfo));
       localStorage.setItem("authToken", token);
-      Navigate( "/Home");
+      navigate( "/Home");
     } else {
       throw new Error("Error al enviar el token al backend");
     }
