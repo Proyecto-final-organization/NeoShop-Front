@@ -29,7 +29,8 @@ import { getFavoritesByUserId } from "./Redux/Actions/favoritesActions";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const {id_user} = user
+const id_user = user?.id_user;
+
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -40,10 +41,11 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (id_user) {
-      dispatch(getFavoritesByUserId(id_user))
-    }
-  }, [dispatch, id_user])
+  if (id_user) {
+    dispatch(getFavoritesByUserId(id_user))
+  }
+}, [dispatch, id_user]);
+
   
 
 
